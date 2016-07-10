@@ -22,13 +22,23 @@ public class AlertUtil {
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(okButtonText, okButtonListener);
+
+        isBuilded  = true;
+    }
+
+    public void setNegativeButton(String negativeButtonText, DialogInterface.OnClickListener negativeButtonListener) throws Exception{
+        throwExceptionIfNotBuilded();
+        alertDialog.setNegativeButton(negativeButtonText, negativeButtonListener);
     }
 
     public void show() throws Exception{
-        if(!isBuilded)
-            throw new AlertNotBuildedException("Alert not builded. Call build() with title, message, ok and cancel listeners");
-
+        throwExceptionIfNotBuilded();
         alertDialog.show();
+    }
+
+    private void throwExceptionIfNotBuilded() throws Exception{
+        if(!isBuilded)
+            throw new AlertNotBuildedException("Alert not builded. Call build() with title, message, ok listeners before calling this function");
     }
 
     class AlertNotBuildedException extends Exception{
