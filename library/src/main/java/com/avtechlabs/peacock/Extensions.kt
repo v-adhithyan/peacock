@@ -38,7 +38,7 @@ fun Activity.marshmallowOrAbove(func: () -> Any){
 }
 
 fun Activity.permissionGranted(permission: String) : Boolean {
-    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
+    return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 }
 
 fun Activity.checkAndAskPermission(permissions: Array<String>){
