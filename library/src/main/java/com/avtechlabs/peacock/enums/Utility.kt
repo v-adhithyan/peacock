@@ -1,8 +1,8 @@
-package com.avtechlabs.peacock.enums;
+package com.avtechlabs.peacock.enums
 
 /**
  * Created by adhithyan-3592 on 10/07/16.
  */
-public enum Utility {
+enum class Utility {
     TOAST, ALERT
 }
