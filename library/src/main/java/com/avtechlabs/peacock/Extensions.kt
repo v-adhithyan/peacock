@@ -2,8 +2,12 @@ package com.avtechlabs.peacock
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.os.Build
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.widget.Toast
 
 /**
@@ -27,4 +31,27 @@ fun Activity.showLongToast(message: String) {
 
 fun Activity.showShortToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Activity.marshmallowOrAbove(func: () -> Any){
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { func() }
+}
+
+fun Activity.permissionGranted(permission: String) : Boolean {
+    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
+}
+
+fun Activity.checkAndAskPermission(permissions: Array<String>){
+    var permissionList = mutableListOf("")
+
+    marshmallowOrAbove {
+        permissionList.removeAt(0)
+        for ( i in 0 until permissions.size ) {
+                var permission = permissions.get(i)
+            if( !permissionGranted( permission ) ) permissionList.add(permission)
+        }
+
+        if (permissionList.size > 0)
+            ActivityCompat.requestPermissions(this, permissionList.toTypedArray(), 100)
+    }
 }

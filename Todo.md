@@ -1,3 +1,4 @@
 - [ ] Notifications util
 - [ ] Snackbar util
-- [ ] Internet connection checker
+- [X] Internet connection checker
+- [X] Dynamic permission checker
